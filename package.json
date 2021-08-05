@@ -1,5 +1,5 @@
 {
-  "name": "react-google-login",
+  "name": "@toxa23/react-google-login",
   "version": "5.1.3",
   "description": "A Google Login Component for React",
   "main": "dist/google-login.js",
@@ -24,7 +24,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anthonyjgrove/react-google-login.git"
+    "url": "git+https://github.com/toxa23/react-google-login.git"
   },
   "keywords": [
     "react",

@@ -1,6 +1,8 @@
 # React Google Login
 
-> A Google oAUth Sign-in / Log-in Component for React
+A Google oAUth Sign-in / Log-in Component for React
+
+Forked from [ReactGoogleLogin](https://github.com/anthonyjgrove/react-google-login) and improved for automatic token refresh so you can update the token in your project and, for example, pass it to the backend
 
 ## Storybook
 
@@ -8,20 +10,24 @@
 
 ## Install
 ```
-npm install react-google-login
+npm install @toxa23/react-google-login
 ```
 
 ## How to use
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GoogleLogin from 'react-google-login';
+import GoogleLogin from '@toxa23/react-google-login';
 // or
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from '@toxa23/react-google-login';
 
 
 const responseGoogle = (response) => {
   console.log(response);
+}
+
+const checkin = (response) => {
+  console.log(response.tokenObj.access_token);
 }
 
 ReactDOM.render(
@@ -29,6 +35,7 @@ ReactDOM.render(
     clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
     buttonText="Login"
     onSuccess={responseGoogle}
+    onTokenRefresh={checkin}
     onFailure={responseGoogle}
     cookiePolicy={'single_host_origin'}
   />,
@@ -70,6 +77,7 @@ import { useGoogleLogin } from 'react-google-login'
 const { signIn, loaded } = useGoogleLogin({
     onSuccess,
     onAutoLoadFinished,
+    onTokenRefresh,
     clientId,
     cookiePolicy,
     loginHint,
@@ -150,6 +158,7 @@ Use GoogleLogout button to logout the user from google.
 |   onScriptLoadFailure  | function |         -                  | If defined, will be called when loading the 'google-login' script fails (otherwise onFailure will be called) |
 |   onRequest  | function |                   -                  |                  |
 |   onAutoLoadFinished  | function |                   -         |                  |
+|   onTokenRefresh  | function |         -                  | If defined, will be called every 55 minutes providing new access token |
 |   buttonText |  string  |             Login with Google        |                  |
 |   className  |  string  |                   -                  |                  |
 |    style     |  object  |                   -                  |                  |

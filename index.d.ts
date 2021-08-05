@@ -71,12 +71,17 @@ export interface GoogleLoginResponseOffline {
   readonly code: string;
 }
 
+export interface RefreshTokenResponse {
+  tokenObj: AuthResponse;
+}
+
 export interface GoogleLoginProps {
   readonly onSuccess?: (response: GoogleLoginResponse | GoogleLoginResponseOffline) => void,
   readonly onAutoLoadFinished?: (successLogin: boolean) => void,
   readonly onFailure?: (error: any) => void,
   readonly onScriptLoadFailure?: (error: any) => void,
   readonly onRequest?: () => void,
+  readonly onTokenRefresh?: (response: RefreshTokenResponse) => void,
   readonly clientId: string,
   readonly jsSrc?: string,
   readonly buttonText?: string,
@@ -161,6 +166,7 @@ export interface UseGoogleLoginProps {
   readonly onFailure?: (error: any) => void,
   readonly onScriptLoadFailure?: (error: any) => void,
   readonly onAutoLoadFinished?: (successLogin: boolean) => void,
+  readonly onTokenRefresh?: (response: RefreshTokenResponse) => void,
   readonly clientId: string,
   readonly jsSrc?: string,
   readonly onRequest?: () => void,

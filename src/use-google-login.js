@@ -5,6 +5,7 @@ import removeScript from './remove-script'
 const useGoogleLogin = ({
   onSuccess = () => {},
   onAutoLoadFinished = () => {},
+  onTokenRefresh = () => {},
   onFailure = () => {},
   onRequest = () => {},
   onScriptLoadFailure,
@@ -26,6 +27,18 @@ const useGoogleLogin = ({
 }) => {
   const [loaded, setLoaded] = useState(false)
 
+  function refreshTokenSetup(result) {
+    let refreshTiming = (result.tokenObj.expires_in || 3300) * 1000
+    const refreshToken = () => {
+      result.reloadAuthResponse().then(newAuthRes => {
+        refreshTiming = (newAuthRes.expires_in || 3300) * 1000
+        setTimeout(refreshToken, refreshTiming)
+        onTokenRefresh({ tokenObj: newAuthRes })
+      })
+    }
+    setTimeout(refreshToken, refreshTiming)
+  }
+
   function handleSigninSuccess(res) {
     /*
       offer renamed response keys to names that match use
@@ -44,6 +57,7 @@ const useGoogleLogin = ({
       givenName: basicProfile.getGivenName(),
       familyName: basicProfile.getFamilyName()
     }
+    refreshTokenSetup(res)
     onSuccess(res)
   }
 

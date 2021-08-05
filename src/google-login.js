@@ -10,6 +10,7 @@ const GoogleLogin = props => {
   const {
     onSuccess,
     onAutoLoadFinished,
+    onTokenRefresh,
     onRequest,
     onFailure,
     onScriptLoadFailure,
@@ -43,6 +44,7 @@ const GoogleLogin = props => {
   const { signIn, loaded } = useGoogleLogin({
     onSuccess,
     onAutoLoadFinished,
+    onTokenRefresh,
     onRequest,
     onFailure,
     onScriptLoadFailure,
